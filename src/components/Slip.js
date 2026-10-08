@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
-import Svg, { Line, Rect } from 'react-native-svg';
+import Svg, { Line, Path, Rect } from 'react-native-svg';
 import * as Haptics from 'expo-haptics';
 import Stamp from './Stamp';
 import { reduceMotion } from '../motion';
@@ -9,7 +9,7 @@ import { colors, fonts } from '../theme';
 const STUB = 64;
 const NOTCH = 6;
 
-export default function Slip({ task, onToggle }) {
+export default function Slip({ task, onToggle, onDelete }) {
   const [justStamped, setJustStamped] = useState(false);
   const thump = useRef(new Animated.Value(0)).current;
 
@@ -17,6 +17,11 @@ export default function Slip({ task, onToggle }) {
     if (!task.done) setJustStamped(true);
     else Haptics.selectionAsync();
     onToggle(task.id);
+  }
+
+  function remove() {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    onDelete(task);
   }
 
   function impact() {
@@ -51,9 +56,28 @@ export default function Slip({ task, onToggle }) {
         </View>
         <Text style={[styles.text, task.done && styles.textDone]}>{task.text}</Text>
       </Pressable>
-      <Svg style={styles.perforation} width={2} height="100%">
-        <Line x1={1} y1={0} x2={1} y2="100%" stroke={colors.slipEdge} strokeWidth={2} strokeDasharray="2,5" strokeLinecap="round" />
-      </Svg>
+      <Pressable
+        onPress={remove}
+        accessibilityRole="button"
+        accessibilityLabel={`Smazat úkol: ${task.text}`}
+        style={({ pressed }) => [styles.remove, pressed && styles.hitPressed]}
+      >
+        <Svg width={24} height={24} viewBox="0 0 24 24">
+          <Path
+            d="M4 7h16M9 7V4.5h6V7M6.5 7l1 12.5h9l1-12.5M10 11v5M14 11v5"
+            stroke={colors.inkFaded}
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+          />
+        </Svg>
+      </Pressable>
+      <View style={styles.perforation} pointerEvents="none">
+        <Svg width={2} height="100%">
+          <Line x1={1} y1={0} x2={1} y2="100%" stroke={colors.slipEdge} strokeWidth={2} strokeDasharray="2,5" strokeLinecap="round" />
+        </Svg>
+      </View>
       <View style={[styles.notch, { top: -NOTCH }]} />
       <View style={[styles.notch, { bottom: -NOTCH }]} />
       {task.done && (
@@ -75,10 +99,11 @@ const styles = StyleSheet.create({
   },
   slipDone: { backgroundColor: colors.slipDone },
   hit: { flex: 1, flexDirection: 'row' },
+  remove: { width: 52, alignItems: 'center', justifyContent: 'center' },
   hitPressed: { backgroundColor: colors.slipDone },
   stub: { width: STUB, alignItems: 'center', justifyContent: 'center', gap: 4 },
   serial: { fontFamily: fonts.type, fontSize: 11, color: colors.inkFaded },
-  perforation: { position: 'absolute', left: STUB - 1, top: 10, bottom: 10 },
+  perforation: { position: 'absolute', left: STUB - 1, top: 10, bottom: 10, width: 2 },
   notch: {
     position: 'absolute',
     left: STUB - NOTCH,
@@ -90,7 +115,7 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
     paddingLeft: 16,
-    paddingRight: 16,
+    paddingRight: 4,
     paddingVertical: 16,
     fontFamily: fonts.type,
     fontSize: 17,

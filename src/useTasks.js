@@ -20,6 +20,14 @@ function reducer(state, action) {
           t.id === action.id ? { ...t, done: !t.done, doneAt: t.done ? null : Date.now() } : t,
         ),
       };
+    case 'remove':
+      return { ...state, tasks: state.tasks.filter((t) => t.id !== action.id) };
+    case 'restore': {
+      if (state.tasks.some((t) => t.id === action.task.id)) return state;
+      const tasks = [...state.tasks];
+      tasks.splice(Math.min(action.index, tasks.length), 0, action.task);
+      return { ...state, tasks };
+    }
     default:
       return state;
   }
