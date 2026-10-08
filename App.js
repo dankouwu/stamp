@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import { BackHandler, FlatList, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as SplashScreen from 'expo-splash-screen';
@@ -45,6 +45,7 @@ function Screen() {
   const [state, dispatch] = useTasks((kind) => setToast({ id: Date.now(), message: STORAGE_ERRORS[kind] }));
   const [draft, setDraft] = useState('');
   const [keyboardUp, setKeyboardUp] = useState(false);
+  const [composing, setComposing] = useState(false);
   const inputRef = useRef(null);
   const listRef = useRef(null);
 
@@ -59,6 +60,15 @@ function Screen() {
     const timer = setTimeout(() => setToast(null), toast.action ? 5000 : 6000);
     return () => clearTimeout(timer);
   }, [toast]);
+
+  useEffect(() => {
+    if (!composing) return;
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+      closeComposer();
+      return true;
+    });
+    return () => sub.remove();
+  }, [composing]);
 
   useEffect(() => {
     const show = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow', () => setKeyboardUp(true));
@@ -97,9 +107,14 @@ function Screen() {
     });
   }
 
+  function closeComposer() {
+    Keyboard.dismiss();
+    setComposing(false);
+  }
+
   function pickStarter(text) {
     setDraft(text);
-    inputRef.current?.focus();
+    setComposing(true);
   }
 
   if (!state.ready) return <View style={styles.screen} />;
@@ -107,6 +122,12 @@ function Screen() {
   return (
     <View style={[styles.screen, { paddingTop: insets.top }]}>
       <StatusBar style="light" />
+      <Header
+        open={open}
+        done={state.tasks.length - open}
+        composing={composing}
+        onToggleCompose={() => (composing ? closeComposer() : setComposing(true))}
+      />
       <KeyboardAvoidingView style={styles.flex} behavior="padding">
         <FlatList
           ref={listRef}
@@ -115,21 +136,22 @@ function Screen() {
           keyExtractor={(t) => String(t.id)}
           renderItem={({ item }) => <Slip task={item} onToggle={toggleTask} onDelete={deleteTask} />}
           ItemSeparatorComponent={Gap}
-          ListHeaderComponent={<Header open={open} done={state.tasks.length - open} />}
           ListEmptyComponent={<EmptyState onPick={pickStarter} />}
           contentContainerStyle={styles.listContent}
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
         />
-        <View>
+        <View style={{ paddingBottom: composing ? 0 : insets.bottom }}>
           {toast && <Toast key={toast.id} message={toast.message} action={toast.action} onAction={toast.onAction} />}
-          <Composer
-            value={draft}
-            onChangeText={setDraft}
-            onAdd={addTask}
-            inputRef={inputRef}
-            bottomInset={keyboardUp ? 8 : Math.max(insets.bottom, 8)}
-          />
+          {composing && (
+            <Composer
+              value={draft}
+              onChangeText={setDraft}
+              onAdd={addTask}
+              inputRef={inputRef}
+              bottomInset={keyboardUp ? 8 : Math.max(insets.bottom, 8)}
+            />
+          )}
         </View>
       </KeyboardAvoidingView>
     </View>

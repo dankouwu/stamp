@@ -8,7 +8,7 @@ export default function EmptyState({ onPick }) {
     <View style={styles.box}>
       <Text style={styles.heading} maxFontSizeMultiplier={1.3}>Nothing on the slip.</Text>
       <Text style={styles.body} maxFontSizeMultiplier={1.3}>
-        Write your first task in the line below, or start with one of these:
+        Tap + to write your first task, or start with one of these:
       </Text>
       {STARTERS.map((text) => (
         <Pressable

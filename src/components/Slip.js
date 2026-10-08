@@ -65,7 +65,7 @@ export default function Slip({ task, onToggle, onDelete }) {
         <Svg width={24} height={24} viewBox="0 0 24 24">
           <Path
             d="M4 7h16M9 7V4.5h6V7M6.5 7l1 12.5h9l1-12.5M10 11v5M14 11v5"
-            stroke={colors.inkFaded}
+            stroke={colors.stamp}
             strokeWidth={2}
             strokeLinecap="round"
             strokeLinejoin="round"

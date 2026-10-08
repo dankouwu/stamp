@@ -42,6 +42,7 @@ export default function Composer({ value, onChangeText, onAdd, inputRef, bottomI
         <Animated.View style={[styles.inputWrap, { transform: [{ translateX: shake }] }]}>
           <TextInput
             ref={inputRef}
+            autoFocus
             value={value}
             onChangeText={handleChange}
             onSubmitEditing={submit}

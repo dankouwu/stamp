@@ -5,6 +5,6 @@ export function dayMonth(date) {
   return `${MONTHS[date.getMonth()]} ${date.getDate()}`;
 }
 
-export function dateLine(date) {
-  return `${DAYS[date.getDay()]} ${dayMonth(date)} ${date.getFullYear()}`;
+export function weekday(date) {
+  return DAYS[date.getDay()];
 }
