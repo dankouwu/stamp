@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react';
-import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { Animated, Easing, Pressable, StyleSheet, Text, View } from 'react-native';
 import Svg, { Line, Path, Rect } from 'react-native-svg';
 import * as Haptics from 'expo-haptics';
 import Stamp from './Stamp';
@@ -9,9 +9,19 @@ import { colors, fonts } from '../theme';
 const STUB = 64;
 const NOTCH = 6;
 
-export default function Slip({ task, onToggle, onDelete }) {
+export default function Slip({ task, entering, onToggle, onDelete }) {
   const [justStamped, setJustStamped] = useState(false);
   const thump = useRef(new Animated.Value(0)).current;
+  const enterY = useRef(new Animated.Value(entering && !reduceMotion() ? -16 : 0)).current;
+
+  useEffect(() => {
+    Animated.timing(enterY, {
+      toValue: 0,
+      duration: 280,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   function press() {
     if (!task.done) setJustStamped(true);
@@ -34,7 +44,7 @@ export default function Slip({ task, onToggle, onDelete }) {
   }
 
   return (
-    <Animated.View style={[styles.slip, task.done && styles.slipDone, { transform: [{ translateY: thump }] }]}>
+    <Animated.View style={[styles.slip, task.done && styles.slipDone, { transform: [{ translateY: Animated.add(thump, enterY) }] }]}>
       <Pressable
         onPress={press}
         accessibilityRole="checkbox"

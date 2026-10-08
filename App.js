@@ -13,6 +13,7 @@ import EmptyState from './src/components/EmptyState';
 import Slip from './src/components/Slip';
 import Composer from './src/components/Composer';
 import Toast from './src/components/Toast';
+import Presence from './src/components/Presence';
 import { useTasks } from './src/useTasks';
 import { animateNextLayout } from './src/motion';
 import { colors } from './src/theme';
@@ -46,6 +47,8 @@ function Screen() {
   const [draft, setDraft] = useState('');
   const [keyboardUp, setKeyboardUp] = useState(false);
   const [composing, setComposing] = useState(false);
+  const [freshId, setFreshId] = useState(null);
+  const [composerShown, setComposerShown] = useState(false);
   const inputRef = useRef(null);
   const listRef = useRef(null);
 
@@ -82,7 +85,9 @@ function Screen() {
   function addTask(text) {
     animateNextLayout();
     dispatch({ type: 'add', text });
+    setFreshId(state.next);
     setDraft('');
+    closeComposer();
     listRef.current?.scrollToOffset({ offset: 0, animated: true });
   }
 
@@ -134,16 +139,18 @@ function Screen() {
           style={styles.flex}
           data={state.tasks}
           keyExtractor={(t) => String(t.id)}
-          renderItem={({ item }) => <Slip task={item} onToggle={toggleTask} onDelete={deleteTask} />}
+          renderItem={({ item }) => <Slip task={item} entering={item.id === freshId} onToggle={toggleTask} onDelete={deleteTask} />}
           ItemSeparatorComponent={Gap}
           ListEmptyComponent={<EmptyState onPick={pickStarter} />}
           contentContainerStyle={styles.listContent}
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
         />
-        <View style={{ paddingBottom: composing ? 0 : insets.bottom }}>
-          {toast && <Toast key={toast.id} message={toast.message} action={toast.action} onAction={toast.onAction} />}
-          {composing && (
+        <View style={{ paddingBottom: composerShown ? 0 : insets.bottom }}>
+          <Presence visible={toast !== null} offset={12}>
+            {toast && <Toast key={toast.id} message={toast.message} action={toast.action} onAction={toast.onAction} />}
+          </Presence>
+          <Presence visible={composing} offset={24} onMountedChange={setComposerShown}>
             <Composer
               value={draft}
               onChangeText={setDraft}
@@ -151,7 +158,7 @@ function Screen() {
               inputRef={inputRef}
               bottomInset={keyboardUp ? 8 : Math.max(insets.bottom, 8)}
             />
-          )}
+          </Presence>
         </View>
       </KeyboardAvoidingView>
     </View>

@@ -1,29 +1,14 @@
-import { useEffect, useRef } from 'react';
-import { AccessibilityInfo, Animated, Pressable, StyleSheet, Text } from 'react-native';
+import { useEffect } from 'react';
+import { AccessibilityInfo, Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors, fonts } from '../theme';
-import { reduceMotion } from '../motion';
 
 export default function Toast({ message, action, onAction }) {
-  const enter = useRef(new Animated.Value(reduceMotion() ? 1 : 0)).current;
-
   useEffect(() => {
     AccessibilityInfo.announceForAccessibility(message);
-    if (reduceMotion()) return;
-    Animated.timing(enter, { toValue: 1, duration: 200, useNativeDriver: true }).start();
   }, []);
 
   return (
-    <Animated.View
-      accessibilityRole="alert"
-      accessibilityLiveRegion="polite"
-      style={[
-        styles.toast,
-        {
-          opacity: enter,
-          transform: [{ translateY: enter.interpolate({ inputRange: [0, 1], outputRange: [12, 0] }) }],
-        },
-      ]}
-    >
+    <View accessibilityRole="alert" accessibilityLiveRegion="polite" style={styles.toast}>
       <Text style={styles.message} maxFontSizeMultiplier={1.3}>{message}</Text>
       {action && (
         <Pressable
@@ -34,7 +19,7 @@ export default function Toast({ message, action, onAction }) {
           <Text style={styles.actionText} maxFontSizeMultiplier={1.2}>{action}</Text>
         </Pressable>
       )}
-    </Animated.View>
+    </View>
   );
 }
 
