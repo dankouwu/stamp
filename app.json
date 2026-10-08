@@ -13,7 +13,6 @@
       "adaptiveIcon": {
         "backgroundColor": "#22332C",
         "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       }
     },
@@ -22,7 +21,14 @@
     },
     "plugins": [
       "expo-font",
-      "expo-splash-screen"
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 280,
+          "backgroundColor": "#22332C"
+        }
+      ]
     ],
     "backgroundColor": "#22332C"
   }

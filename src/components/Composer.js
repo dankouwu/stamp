@@ -48,7 +48,7 @@ export default function Composer({ value, onChangeText, onAdd, inputRef, bottomI
             blurOnSubmit={false}
             returnKeyType="done"
             maxLength={MAX_LENGTH}
-            placeholder="Např. vynést koš"
+            placeholder="Napiš úkol"
             placeholderTextColor={colors.inkFaded}
             accessibilityLabel="Nový úkol"
             aria-invalid={showError}
