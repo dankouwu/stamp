@@ -34,7 +34,6 @@
     <li><a href="#development">Development</a></li>
     <li><a href="#project-structure">Project structure</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -152,12 +151,5 @@ src/components/
 - [ ] Clear all done tasks at once
 - [x] A standalone Android build
 - [ ] An iPhone build
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Acknowledgments
-
-* [Best-README-Template](https://github.com/othneildrew/Best-README-Template) for the layout of this file
-* Barlow Condensed and Courier Prime, both under the SIL Open Font License
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
