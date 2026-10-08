@@ -1,9 +1,5 @@
 <a id="readme-top"></a>
 
-[![Expo SDK][expo-shield]][expo-url]
-[![React Native][rn-shield]][rn-url]
-[![Download APK][apk-shield]][apk-url]
-
 <br />
 <div align="center">
   <a href="https://github.com/dankouwu/stamp">
@@ -69,8 +65,8 @@ A few choices that are not obvious from the screenshots:
 
 ### Built with
 
-* [![Expo][expo-badge]][expo-url]
-* [![React Native][rn-badge]][rn-url]
+* [Expo](https://expo.dev/) SDK 57
+* [React Native](https://reactnative.dev/) 0.86
 * [react-native-svg](https://github.com/software-mansion/react-native-svg) for the checkbox, the perforation and the icons
 * [AsyncStorage](https://react-native-async-storage.github.io/async-storage/) for saving the list
 * [expo-haptics](https://docs.expo.dev/versions/latest/sdk/haptics/) for the tap you feel when the stamp comes down
@@ -80,13 +76,13 @@ A few choices that are not obvious from the screenshots:
 
 ## Install
 
-Stamp is an Android app. There is no iPhone version.
-
-1. On your phone, open the [latest release](https://github.com/dankouwu/stamp/releases/latest) and download `stamp.apk`.
+1. On an Android phone, open the [latest release](https://github.com/dankouwu/stamp/releases/latest) and download `stamp-1.0.0.apk`.
 2. Open the downloaded file. If Android asks, allow your browser or file manager to install apps.
 3. Tap Install, then open Stamp.
 
 It needs Android 7.0 or newer. The APK is signed with a debug key and is not on Google Play, so Android or Play Protect may show a warning before installing. That is expected for an app installed from a file.
+
+**iPhone:** there is no installable file. Apple only allows that through a paid developer account. The app code is the same on both systems, so on an iPhone you run it from source inside Expo Go, as described under [Development](#development).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -163,15 +159,5 @@ src/components/
 
 * [Best-README-Template](https://github.com/othneildrew/Best-README-Template) for the layout of this file
 * Barlow Condensed and Courier Prime, both under the SIL Open Font License
-* [Shields.io](https://shields.io/) for the badges
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-[expo-shield]: https://img.shields.io/badge/Expo%20SDK-57-000020?style=for-the-badge&logo=expo&logoColor=white
-[rn-shield]: https://img.shields.io/badge/React%20Native-0.86-20232a?style=for-the-badge&logo=react&logoColor=61DAFB
-[apk-shield]: https://img.shields.io/badge/Download-Android%20APK-B02E1A?style=for-the-badge&logo=android&logoColor=white
-[apk-url]: https://github.com/dankouwu/stamp/releases/latest
-[expo-badge]: https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white
-[expo-url]: https://expo.dev/
-[rn-badge]: https://img.shields.io/badge/React%20Native-20232a?style=for-the-badge&logo=react&logoColor=61DAFB
-[rn-url]: https://reactnative.dev/
