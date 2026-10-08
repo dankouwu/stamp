@@ -63,6 +63,10 @@ function Screen() {
     listRef.current?.scrollToOffset({ offset: 0, animated: true });
   }
 
+  function toggleTask(id) {
+    dispatch({ type: 'toggle', id });
+  }
+
   function pickStarter(text) {
     setDraft(text);
     inputRef.current?.focus();
@@ -79,7 +83,7 @@ function Screen() {
           style={styles.flex}
           data={state.tasks}
           keyExtractor={(t) => String(t.id)}
-          renderItem={({ item }) => <Slip task={item} />}
+          renderItem={({ item }) => <Slip task={item} onToggle={toggleTask} />}
           ItemSeparatorComponent={Gap}
           ListHeaderComponent={<Header open={open} done={state.tasks.length - open} />}
           ListEmptyComponent={<EmptyState onPick={pickStarter} />}
@@ -105,5 +109,5 @@ const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.desk },
   flex: { flex: 1 },
   listContent: { paddingBottom: 20 },
-  gap: { height: 12 },
+  gap: { height: 16 },
 });

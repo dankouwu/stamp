@@ -13,6 +13,13 @@ function reducer(state, action) {
         next: state.next + 1,
         tasks: [{ id: state.next, text: action.text, done: false, doneAt: null }, ...state.tasks],
       };
+    case 'toggle':
+      return {
+        ...state,
+        tasks: state.tasks.map((t) =>
+          t.id === action.id ? { ...t, done: !t.done, doneAt: t.done ? null : Date.now() } : t,
+        ),
+      };
     default:
       return state;
   }
