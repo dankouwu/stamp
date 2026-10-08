@@ -1,0 +1,50 @@
+import { useEffect, useReducer, useRef } from 'react';
+import { loadState, saveState } from './storage';
+
+const initial = { ready: false, next: 1, tasks: [] };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'loaded':
+      return { ready: true, next: action.next, tasks: action.tasks };
+    case 'add':
+      return {
+        ...state,
+        next: state.next + 1,
+        tasks: [{ id: state.next, text: action.text, done: false, doneAt: null }, ...state.tasks],
+      };
+    default:
+      return state;
+  }
+}
+
+export function useTasks(onError) {
+  const [state, dispatch] = useReducer(reducer, initial);
+  const report = useRef(onError);
+  report.current = onError;
+  const saveFailed = useRef(false);
+
+  useEffect(() => {
+    loadState()
+      .then(({ next, tasks }) => dispatch({ type: 'loaded', next, tasks }))
+      .catch(() => {
+        dispatch({ type: 'loaded', next: 1, tasks: [] });
+        report.current?.('load');
+      });
+  }, []);
+
+  useEffect(() => {
+    if (!state.ready) return;
+    saveState(state).then(
+      () => {
+        saveFailed.current = false;
+      },
+      () => {
+        if (!saveFailed.current) report.current?.('save');
+        saveFailed.current = true;
+      },
+    );
+  }, [state]);
+
+  return [state, dispatch];
+}
