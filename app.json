@@ -14,7 +14,8 @@
         "backgroundColor": "#22332C",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+      },
+      "package": "com.dankouwu.stamp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
