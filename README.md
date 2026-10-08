@@ -2,7 +2,7 @@
 
 [![Expo SDK][expo-shield]][expo-url]
 [![React Native][rn-shield]][rn-url]
-[![Runs in Expo Go][go-shield]][go-url]
+[![Download APK][apk-shield]][apk-url]
 
 <br />
 <div align="center">
@@ -18,7 +18,7 @@
     <a href="#about-the-project"><strong>See the screens »</strong></a>
     <br />
     <br />
-    <a href="#getting-started">Run it</a>
+    <a href="https://github.com/dankouwu/stamp/releases/latest">Download the APK</a>
     &middot;
     <a href="https://github.com/dankouwu/stamp/issues">Report a bug</a>
   </p>
@@ -33,14 +33,9 @@
         <li><a href="#built-with">Built with</a></li>
       </ul>
     </li>
-    <li>
-      <a href="#getting-started">Getting started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
+    <li><a href="#install">Install</a></li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#development">Development</a></li>
     <li><a href="#project-structure">Project structure</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -83,31 +78,15 @@ A few choices that are not obvious from the screenshots:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Getting started
+## Install
 
-### Prerequisites
+Stamp is an Android app. There is no iPhone version.
 
-* [Node.js](https://nodejs.org/) LTS
-* The Expo Go app on your phone, from Google Play or the App Store. Its version has to match the project's SDK, which is 57.
+1. On your phone, open the [latest release](https://github.com/dankouwu/stamp/releases/latest) and download `stamp.apk`.
+2. Open the downloaded file. If Android asks, allow your browser or file manager to install apps.
+3. Tap Install, then open Stamp.
 
-### Installation
-
-1. Clone the repo
-   ```sh
-   git clone https://github.com/dankouwu/stamp.git
-   cd stamp
-   ```
-2. Install the packages
-   ```sh
-   npm install
-   ```
-3. Start the dev server
-   ```sh
-   npx expo start
-   ```
-4. Scan the QR code from the terminal with Expo Go. On Android use the scanner inside Expo Go, on iPhone use the Camera app. The phone and the computer must be on the same network.
-
-If the network blocks the connection, `npx expo start --tunnel` works around it. On Android you can also use a USB cable: run `adb reverse tcp:8081 tcp:8081`, then open `exp://localhost:8081` in Expo Go.
+It needs Android 7.0 or newer. The APK is signed with a debug key and is not on Google Play, so Android or Play Protect may show a warning before installing. That is expected for an app installed from a file.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -118,7 +97,32 @@ If the network blocks the connection, `npx expo start --tunnel` works around it.
 3. Tap a slip to stamp it as done. Tap it again to take the stamp off.
 4. Tap the red trash icon to delete a slip. Press **UNDO** within five seconds to bring it back.
 
-Where the app has been run: an Android 14 phone and an Android 15 emulator, both through Expo Go. It has not been run on iOS.
+The release APK has been installed and run on an Android 15 emulator. An earlier build of the same code ran on an Android 14 phone through Expo Go. It has not been run on iOS.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Development
+
+To run from source you need [Node.js](https://nodejs.org/) LTS and the Expo Go app, with a version that matches SDK 57.
+
+```sh
+git clone https://github.com/dankouwu/stamp.git
+cd stamp
+npm install
+npx expo start
+```
+
+Scan the QR code with Expo Go. The phone and the computer must be on the same network. If that fails, `npx expo start --tunnel` works around it.
+
+To build the APK yourself you need JDK 17 and the Android SDK:
+
+```sh
+npx expo prebuild --platform android
+cd android
+./gradlew assembleRelease
+```
+
+The file ends up in `android/app/build/outputs/apk/release/`.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -150,7 +154,8 @@ src/components/
 - [x] Undo for deletes
 - [ ] Edit the text of an existing task
 - [ ] Clear all done tasks at once
-- [ ] A standalone build, so the app runs without Expo Go
+- [x] A standalone Android build
+- [ ] An iPhone build
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -164,8 +169,8 @@ src/components/
 
 [expo-shield]: https://img.shields.io/badge/Expo%20SDK-57-000020?style=for-the-badge&logo=expo&logoColor=white
 [rn-shield]: https://img.shields.io/badge/React%20Native-0.86-20232a?style=for-the-badge&logo=react&logoColor=61DAFB
-[go-shield]: https://img.shields.io/badge/Runs%20in-Expo%20Go-B02E1A?style=for-the-badge
-[go-url]: https://expo.dev/go
+[apk-shield]: https://img.shields.io/badge/Download-Android%20APK-B02E1A?style=for-the-badge&logo=android&logoColor=white
+[apk-url]: https://github.com/dankouwu/stamp/releases/latest
 [expo-badge]: https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white
 [expo-url]: https://expo.dev/
 [rn-badge]: https://img.shields.io/badge/React%20Native-20232a?style=for-the-badge&logo=react&logoColor=61DAFB
