@@ -43,6 +43,7 @@ export default function Composer({ value, onChangeText, onAdd, inputRef, bottomI
           <TextInput
             ref={inputRef}
             autoFocus
+            keyboardAppearance="dark"
             value={value}
             onChangeText={handleChange}
             onSubmitEditing={submit}
