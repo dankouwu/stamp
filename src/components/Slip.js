@@ -52,14 +52,14 @@ export default function Slip({ task, onToggle, onDelete }) {
               </>
             )}
           </Svg>
-          <Text style={styles.serial} maxFontSizeMultiplier={1.2}>č. {String(task.id).padStart(2, '0')}</Text>
+          <Text style={styles.serial} maxFontSizeMultiplier={1.2}>No. {String(task.id).padStart(2, '0')}</Text>
         </View>
         <Text style={[styles.text, task.done && styles.textDone]}>{task.text}</Text>
       </Pressable>
       <Pressable
         onPress={remove}
         accessibilityRole="button"
-        accessibilityLabel={`Smazat úkol: ${task.text}`}
+        accessibilityLabel={`Delete task: ${task.text}`}
         style={({ pressed }) => [styles.remove, pressed && styles.hitPressed]}
       >
         <Svg width={24} height={24} viewBox="0 0 24 24">

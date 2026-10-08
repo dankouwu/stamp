@@ -20,8 +20,8 @@ import { colors } from './src/theme';
 SplashScreen.preventAutoHideAsync();
 
 const STORAGE_ERRORS = {
-  load: 'Uložené úkoly se nepodařilo načíst. Začínáš s prázdným seznamem.',
-  save: 'Úkoly se nepodařilo uložit. Zkontroluj volné místo v telefonu.',
+  load: 'Saved tasks could not be loaded. Starting with an empty list.',
+  save: 'Tasks could not be saved. Check the free space on your phone.',
 };
 
 export default function App() {
@@ -87,8 +87,8 @@ function Screen() {
     dispatch({ type: 'remove', id: task.id });
     setToast({
       id: Date.now(),
-      message: 'Úkol smazán.',
-      action: 'VRÁTIT',
+      message: 'Task deleted.',
+      action: 'UNDO',
       onAction: () => {
         animateNextLayout();
         dispatch({ type: 'restore', task, index });

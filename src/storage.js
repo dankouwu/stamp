@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const KEY = 'razitko:v1';
+const KEY = 'stamp:v1';
 
 const isTask = (t) =>
   t !== null &&

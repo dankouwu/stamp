@@ -1,28 +1,28 @@
-# Razítko
+# Stamp
 
-Mobilní TODO aplikace v Expo (React Native). Úkoly jsou papírové lístky na zeleném psacím podkladu a hotový úkol se orazítkuje datem.
+A mobile TODO app built with Expo (React Native). Tasks are paper slips on a green desk, and a finished task gets a rubber stamp with the date.
 
-## Co umí
+## What it does
 
-- Přidat úkol. Prázdný text nebo samé mezery aplikace nepřijme a pod polem napíše proč.
-- Zobrazit seznam úkolů, nejnovější nahoře.
-- Označit úkol jako hotový klepnutím na lístek. Přibude razítko HOTOVO s dnešním datem. Dalším klepnutím se úkol vrátí.
-- Smazat úkol ikonou koše. Pět sekund je k dispozici tlačítko VRÁTIT.
-- Úkoly zůstávají uložené i po restartu aplikace (AsyncStorage).
+- Add a task. Empty or whitespace-only text is rejected, with the reason shown under the field.
+- List tasks, newest on top.
+- Mark a task done by tapping its slip. A DONE stamp with today's date appears. Tap again to undo.
+- Delete a task with the trash icon. An UNDO button stays for five seconds.
+- Tasks are saved on the device (AsyncStorage) and survive an app restart.
 
-## Spuštění
+## Run it
 
 ```
 npm install
 npx expo start
 ```
 
-Pak v aplikaci Expo Go naskenuj QR kód. Telefon a počítač musí být ve stejné síti.
+Scan the QR code with Expo Go. The phone and the computer must be on the same network.
 
-## Kde co je
+## Layout
 
-- `App.js`: obrazovka, seznam, přidávání a mazání
-- `src/useTasks.js`: stav úkolů a jeho ukládání
-- `src/storage.js`: čtení a zápis do AsyncStorage
-- `src/components/`: lístek, razítko, pole pro nový úkol, hlavička, hláška s tlačítkem VRÁTIT
-- `src/theme.js`: barvy a písma (Barlow Condensed a Courier Prime, oba pokrývají češtinu)
+- `App.js`: screen, list, adding and deleting
+- `src/useTasks.js`: task state and saving
+- `src/storage.js`: reading and writing AsyncStorage
+- `src/components/`: slip, stamp, new task field, header, undo toast
+- `src/theme.js`: colors and fonts (Barlow Condensed and Courier Prime)

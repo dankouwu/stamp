@@ -1,21 +1,21 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors, fonts } from '../theme';
 
-const STARTERS = ['Vynést koš', 'Napsat domácí úkol', 'Zavolat babičce'];
+const STARTERS = ['Take out the trash', 'Do the homework', 'Call grandma'];
 
 export default function EmptyState({ onPick }) {
   return (
     <View style={styles.box}>
-      <Text style={styles.heading} maxFontSizeMultiplier={1.3}>Lístek je prázdný.</Text>
+      <Text style={styles.heading} maxFontSizeMultiplier={1.3}>Nothing on the slip.</Text>
       <Text style={styles.body} maxFontSizeMultiplier={1.3}>
-        Napiš první úkol do řádku dole, nebo začni jedním z těchto:
+        Write your first task in the line below, or start with one of these:
       </Text>
       {STARTERS.map((text) => (
         <Pressable
           key={text}
           onPress={() => onPick(text)}
           accessibilityRole="button"
-          accessibilityLabel={`Použít „${text}“`}
+          accessibilityLabel={`Use "${text}"`}
           style={({ pressed }) => [styles.starter, pressed && styles.starterPressed]}
         >
           <Text style={styles.starterText} maxFontSizeMultiplier={1.3}>+ {text}</Text>

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Razítko",
-    "slug": "razitko",
+    "name": "Stamp",
+    "slug": "stamp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

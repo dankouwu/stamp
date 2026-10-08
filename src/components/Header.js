@@ -1,28 +1,28 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { colors, fonts } from '../theme';
-import { dateLine } from '../czech';
+import { dateLine } from '../dates';
 
 export default function Header({ open, done }) {
   const total = open + done;
   return (
     <View style={styles.wrap}>
       <View style={styles.topRow}>
-        <Text style={styles.label} maxFontSizeMultiplier={1.3}>RAZÍTKO</Text>
+        <Text style={styles.label} maxFontSizeMultiplier={1.3}>STAMP</Text>
         <Text style={styles.date} maxFontSizeMultiplier={1.3}>{dateLine(new Date())}</Text>
       </View>
       <Text style={styles.title} maxFontSizeMultiplier={1.2} accessibilityRole="header">
-        ÚKOLY
+        TASKS
       </Text>
       <View style={styles.ruleThick} />
       <View style={styles.ruleThin} />
       {total > 0 && (
         <View style={styles.counts} accessibilityLiveRegion="polite">
           {open === 0 ? (
-            <Text style={styles.allDone} maxFontSizeMultiplier={1.3}>Vše orazítkováno.</Text>
+            <Text style={styles.allDone} maxFontSizeMultiplier={1.3}>All stamped.</Text>
           ) : (
-            <Count label="K udělání" value={open} />
+            <Count label="To do" value={open} />
           )}
-          <Count label="Hotovo" value={done} />
+          <Count label="Done" value={done} />
         </View>
       )}
     </View>

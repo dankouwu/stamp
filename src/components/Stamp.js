@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
 import { colors, fonts } from '../theme';
-import { dayMonth } from '../czech';
+import { dayMonth } from '../dates';
 import { reduceMotion } from '../motion';
 
 const DURATION = 170;
@@ -38,7 +38,7 @@ export default function Stamp({ id, doneAt, animate, onImpact }) {
         },
       ]}
     >
-      <Text style={styles.word} maxFontSizeMultiplier={1.2}>HOTOVO</Text>
+      <Text style={styles.word} maxFontSizeMultiplier={1.2}>DONE</Text>
       <View style={styles.line} />
       <Text style={styles.date} maxFontSizeMultiplier={1.2}>{dayMonth(new Date(doneAt))}</Text>
     </Animated.View>
@@ -56,12 +56,12 @@ const styles = StyleSheet.create({
   },
   word: {
     fontFamily: fonts.title,
-    fontSize: 22,
-    lineHeight: 24,
-    letterSpacing: 2.5,
+    fontSize: 24,
+    lineHeight: 26,
+    letterSpacing: 3,
     color: colors.stamp,
     textAlign: 'center',
-    paddingHorizontal: 8,
+    paddingHorizontal: 10,
     paddingTop: 2,
     borderWidth: 3,
     borderBottomWidth: 0,

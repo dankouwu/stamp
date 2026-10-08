@@ -6,7 +6,7 @@ import { reduceMotion } from '../motion';
 
 export const MAX_LENGTH = 100;
 const COUNTER_FROM = 80;
-const EMPTY_MESSAGE = 'Napiš, co je potřeba udělat.';
+const EMPTY_MESSAGE = 'Write what needs doing.';
 
 export default function Composer({ value, onChangeText, onAdd, inputRef, bottomInset }) {
   const [showError, setShowError] = useState(false);
@@ -37,7 +37,7 @@ export default function Composer({ value, onChangeText, onAdd, inputRef, bottomI
 
   return (
     <View style={[styles.strip, { paddingBottom: bottomInset }]}>
-      <Text style={styles.label} maxFontSizeMultiplier={1.3}>NOVÝ ÚKOL</Text>
+      <Text style={styles.label} maxFontSizeMultiplier={1.3}>NEW TASK</Text>
       <View style={styles.row}>
         <Animated.View style={[styles.inputWrap, { transform: [{ translateX: shake }] }]}>
           <TextInput
@@ -48,9 +48,9 @@ export default function Composer({ value, onChangeText, onAdd, inputRef, bottomI
             blurOnSubmit={false}
             returnKeyType="done"
             maxLength={MAX_LENGTH}
-            placeholder="Napiš úkol"
+            placeholder="Write a task"
             placeholderTextColor={colors.inkFaded}
-            accessibilityLabel="Nový úkol"
+            accessibilityLabel="New task"
             aria-invalid={showError}
             style={[styles.input, showError && styles.inputError]}
             maxFontSizeMultiplier={1.3}
@@ -59,8 +59,8 @@ export default function Composer({ value, onChangeText, onAdd, inputRef, bottomI
         <Pressable
           onPress={submit}
           accessibilityRole="button"
-          accessibilityLabel="Přidat úkol"
-          accessibilityHint={empty ? 'Nejdřív napiš text úkolu.' : undefined}
+          accessibilityLabel="Add task"
+          accessibilityHint={empty ? 'Write the task text first.' : undefined}
           style={({ pressed }) => [
             styles.button,
             empty ? styles.buttonIdle : styles.buttonReady,
@@ -68,7 +68,7 @@ export default function Composer({ value, onChangeText, onAdd, inputRef, bottomI
           ]}
         >
           <Text style={[styles.buttonText, empty && styles.buttonTextIdle]} maxFontSizeMultiplier={1.2}>
-            PŘIDAT
+            ADD
           </Text>
         </Pressable>
       </View>
